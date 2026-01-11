@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using GisProject.Models;
+using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,22 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// --- 關鍵：自動遷移資料庫 ---
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        context.Database.EnsureCreated();
+        Console.WriteLine("Database check: Success!");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Database check error: {ex.Message}");
+    }
+}
+// -------------------------
 
 app.UseCors("AllowAll");
 
