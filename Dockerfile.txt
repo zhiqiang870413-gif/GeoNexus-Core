@@ -1,0 +1,18 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+# 複製 csproj 並還原套件
+COPY *.csproj ./
+RUN dotnet restore
+
+# 複製其餘檔案並編譯
+COPY . ./
+RUN dotnet publish -c Release -o out
+
+# 建立執行環境
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+COPY --from=build /app/out .
+
+# 設定啟動指令
+ENTRYPOINT ["dotnet", "GisProject.dll"]
