@@ -1,0 +1,32 @@
+# === Node.js / Frontend (Vue) ===
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# === .NET / Backend ===
+backend/bin/
+backend/obj/
+backend/out/
+# 忽略本地開發的設定檔（避免覆蓋雲端設定）
+backend/appsettings.Development.json
+backend/appsettings.Local.json
+
+# === 資料庫 (SQLite) ===
+# 我們要換成 PostgreSQL 了，本地的 SQLite 檔案絕對不要上傳
+backend/*.db
+backend/*.db-shm
+backend/*.db-wal
+
+# === 編輯器與系統檔案 ===
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.DS_Store
+Thumbs.db
