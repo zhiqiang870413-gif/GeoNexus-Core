@@ -1,0 +1,19 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+
+# Node / Vue
+node_modules/
+dist/
+.env
+
+# Database (非常重要！)
+*.db
+*.db-shm
+*.db-wal
+
+# IDE
+.vs/
+.vscode/
