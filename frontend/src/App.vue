@@ -254,7 +254,11 @@ const addNewPoint = async (name, lat, lng) => {
   try {
     // 發送請求到後端
     //await axios.post('http://localhost:5240/vendors', newVendor);
-    await axios.post(`${API_BASE_URL}/vendors`, newVendor);
+    await axios.post(`${API_BASE_URL}/vendors`, newVendor, {
+          headers: {
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}` // 務必檢查是否有 Bearer 字樣和空格
+                    }
+    });
 
     // 關鍵：新增完後，主動獲取目前地圖邊界來更新畫面
     const bounds = map.getBounds();
@@ -279,7 +283,11 @@ const addNewPoint = async (name, lat, lng) => {
 const updateStatus = async (id, newStatus) => {
   try {
     //await axios.patch(`http://localhost:5240/vendors/${id}`, { status: newStatus });
-    await axios.patch(`${API_BASE_URL}/vendors/${id}`, { status: newStatus });
+    await axios.patch(`${API_BASE_URL}/vendors/${id}`, { status: newStatus }, {
+          headers: {
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}` // 務必檢查是否有 Bearer 字樣和空格
+                    }
+    });
 
     await fetchData(); // 重新抓取資料並更新地圖顏色
   } catch (error) {
@@ -293,7 +301,11 @@ const deleteVendor = async (id) => {
   
   try {
     //await axios.delete(`http://localhost:5240/vendors/${id}`);
-    await axios.delete(`${API_BASE_URL}/vendors/${id}`);
+    await axios.delete(`${API_BASE_URL}/vendors/${id}`, {
+          headers: {
+          'Authorization': `Bearer ${localStorage.getItem('userToken')}` // 務必檢查是否有 Bearer 字樣和空格
+                    }
+    });
 
     await fetchData(); // 重新抓取資料，該點會從清單與地圖消失
   } catch (error) {
